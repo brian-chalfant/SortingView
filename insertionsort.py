@@ -15,7 +15,7 @@ IsRunning = True
 # main loop
 clock = pygame.time.Clock()
 while IsRunning:
-
+    timer_event = pygame.USEREVENT + 1
     # handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -36,15 +36,19 @@ while IsRunning:
             mainArray[j + 1] = mainArray[j]
             j -= 1
             screen.fill(0)
-        mainArray[j+1] = key
+            mainArray[j+1] = key
             # draw the entire range
-        for k, n in enumerate(mainArray):
-            pygame.draw.rect(screen, (255, 255, 255), (
+
+            for k, n in enumerate(mainArray):
+                pygame.draw.rect(screen, (255, 255, 255), (
                 k * (WIDTH / len(mainArray)), HEIGHT - (mainArray[k]) * 50, (WIDTH / len(mainArray)), (n) * 50))
-            pygame.display.flip()
+                pygame.time.set_timer(timer_event, 50)
+                pygame.display.flip()
+
             clock.tick(5)
         # Everything's been moved out of the way, insert
         # the key into the correct location
-        if i < len(mainArray) - 1:
+        if i < len(mainArray) -1:
             i += 1
-            j = 0
+
+        pygame.display.flip()
